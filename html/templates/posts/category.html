@@ -10,6 +10,9 @@
     <ul>
       <li>{{post.location}}</li>
       <li>{{post.date}}</li>
+      <li> 
+        <a href="{% url 'blog:category' post.category %}"> {{post.category}} </a>
+      </li>
     </ul>
       <p>{{post.text|truncatewords:10}}</p>
       <a href = "{% url 'blog:detail' post.id %}">Подробнее</a>
