@@ -46,18 +46,18 @@ posts = [
 
 def index(request):
     """Главная страница"""
-    template = 'homepage/index.html'
-    context = {'posts': posts}
+    template = 'blog/index.html'
+    context = {'posts': posts[::-1]}
     return render(request, template, context)
 
 
 def post_detail(request, id):
     """Конкретный пост"""
     try:
-        context = {'posts': posts[id]}
+        context = {'post': posts[id]}
     except IndexError:
         raise Http404("Пост не найден")
-    template = 'posts/detail.html'
+    template = 'blog/detail.html'
     return render(request, template, context)
 
 
@@ -66,4 +66,4 @@ def category_posts(request, category_slug):
     filtered_posts = [post for post in posts
                       if post['category'] == category_slug]
     context = {'posts': filtered_posts, 'category': category_slug}
-    return render(request, 'posts/category.html', context)
+    return render(request, 'blog/category.html', context)

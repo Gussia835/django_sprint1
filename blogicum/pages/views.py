@@ -5,11 +5,11 @@ app_name = 'pages'
 
 def about(request):
     """Описание"""
-    template = 'about/about.html'
+    template = 'pages/about.html'
     return render(request, template)
 
 
 def rules(request):
     """Правила"""
-    template = 'rules/rules.html'
+    template = 'pages/rules.html'
     return render(request, template)
