@@ -47,7 +47,8 @@ posts = [
 def index(request):
     """Главная страница"""
     template = 'homepage/index.html'
-    return render(request, template)
+    context = {'posts': posts}
+    return render(request, template, context)
 
 
 def post_detail(request, id):
@@ -56,13 +57,13 @@ def post_detail(request, id):
         context = {'posts': posts[id]}
     except IndexError:
         raise Http404("Пост не найден")
-    
     template = 'posts/detail.html'
     return render(request, template, context)
 
 
-def category_posts(request, category_posts):
+def category_posts(request, category_slug):
     """Категории постов"""
-    template = 'posts/category.html'
-    context = {'posts': posts}
-    return render(request, template, context)
+    filtered_posts = [post for post in posts
+                      if post['category'] == category_slug]
+    context = {'posts': filtered_posts, 'category': category_slug}
+    return render(request, 'posts/category.html', context)
