@@ -1,11 +1,10 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 
-{% block title %}Лента записей{% endblock %} 
+{% block title %}Лента записей{% endblock %}
 
 {% block content %}
   <h1>Лента записей</h1>
-  <!-- Перебираем в цикле все посты -->
-  <hr />
+  <hr>
   {% for post in posts %}
   <article>
     <ul>
@@ -13,15 +12,12 @@
       <li>{{ post.date }}</li>
       <li>
         Категория:
-        <a href="{% url 'blog:category' post.category %}">{{ post.category }}</a>
+        <a href="{% url 'blog:category' category_slug=post.category %}">{{ post.category }}</a>
       </li>
     </ul>
-    <!-- Первые 10 слов -->
     <p>{{ post.text|truncatewords:10 }}</p>
-    <a href="{% url 'blog:detail' post.id %}">Читать полный текст</a>
+    <a href="{% url 'blog:detail' id=post.id %}">Читать полный текст</a>
   </article>
-  {% if not forloop.last %}
-  <hr />
-  {% endif %} {% endfor %}
-
+  {% if not forloop.last %}<hr />{% endif %}
+  {% endfor %}
 {% endblock %}
