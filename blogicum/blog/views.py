@@ -43,6 +43,8 @@ posts = [
     },
 ]
 
+posts_by_id = {post['id']: post for post in posts}
+
 
 def index(request):
     """Главная страница"""
@@ -53,12 +55,10 @@ def index(request):
 
 def post_detail(request, id):
     """Конкретный пост"""
-    try:
-        context = {'post': posts[id]}
-    except IndexError:
+    post = posts_by_id.get(id)
+    if post is None:
         raise Http404("Пост не найден")
-    template = 'blog/detail.html'
-    return render(request, template, context)
+    return render(request, 'blog/detail.html', {'post': post})
 
 
 def category_posts(request, category_slug):
